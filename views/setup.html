@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Twilio SMS Demo</title>
+    <title>Twilio SMS Demo Setup</title>
     <meta name="description" content="A cool thing made with Glitch">
     <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
     <meta charset="utf-8">
@@ -17,14 +17,13 @@
   <body>
     <header>
       <h1>
-        Twilio SMS Demo
+        Twilio SMS Demo Setup
       </h1>
     </header>
 
     <main>
       
       <form method="post" action="/sms">
-        <h2>SMS (plain text)</h2>
         <label>Secret <input type="password" maxlength="100" name="secret"></label>
         <button>
           send SMS
@@ -32,7 +31,6 @@
       </form>
       
       <form method="post" action="/mms">
-        <h2>MMS (with media</h2>
         <label>Secret <input type="password" maxlength="100" name="secret"></label>
         <button>
           send MMS

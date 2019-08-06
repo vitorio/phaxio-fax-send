@@ -14,7 +14,11 @@ app.use(function (req, res, next) {
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function(request, response) {
-  response.sendFile(__dirname + "/views/index.html");
+  if (process.env.TWILIO_ACCOUNT_SID) {
+    response.sendFile(__dirname + "/views/index.html");
+  } else {
+    response.sendFile(__dirname + "/views/setup.html");
+  }
 });
 
 app.post("/sms", function(req, res, next) {

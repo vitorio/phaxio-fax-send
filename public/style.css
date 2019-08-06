@@ -8,6 +8,7 @@
 body {
   font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
   margin: 2em;
+  line-height: 1.5;
 }
 
 h1 {
@@ -15,18 +16,19 @@ h1 {
   color: #373fff;
 }
 
-.bold {
-  font-weight: bold;
+p {
+  max-width: 65ch;
 }
 
-p {
-  max-width: 600px;
+header, main {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 form {
   margin-bottom: 25px;
   padding: 15px;
-  background-color: cyan;
+  background-color: lightcyan;
   display: inline-block;
   width: 100%;
   max-width: 340px;
@@ -49,7 +51,7 @@ button {
   background-color: lightgrey;
   border: 1px solid grey;
   box-shadow: 2px 2px teal;
-  padding: .25em .5em;
+  padding: .25em 1em;
   cursor: pointer;
 }
 
