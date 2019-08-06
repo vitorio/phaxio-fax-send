@@ -18,6 +18,11 @@ On the back-end,
 * `package.json` contains the app's dependencies
 * `.env` contains variables custom to the app we don't want other users to see
 
+### More Info
+
+* [Twilio node helper library](https://www.twilio.com/docs/libraries/node)
+* [Twilio developer docs](https://www.twilio.com/docs/)
+
 
 Made by [Glitch](https://glitch.com/)
 -------------------

@@ -33,6 +33,10 @@
       <h2>SMS (plain text)</h2>
       <form method="post" action="/sms">
         <label>
+          Message to send
+          <input type="text" name="message" placeholder="boop!">
+        </label>
+        <label>
           Secret (from <code>.env</code> file)
           <input type="password" maxlength="100" name="secret"/>
         </label>
@@ -42,11 +46,27 @@
       <h2>MMS (with media)</h2>
       <form method="post" action="/mms">
         <label>
+          URL of image to send
+          <input type="text" name="media" placeholder="https://demo.twilio.com/owl.png">
+        </label>
+        <label>
+          Text of message to send
+          <input type="text" name="message" placeholder="hoot!">
+        </label>
+        <label>
           Secret (from <code>.env</code> file)
           <input type="password" maxlength="100" name="secret"/>
         </label>
         <button>send MMS</button>
       </form>
+      
+      <h3>
+        More Info
+      </h3>
+      <ul>
+        <li><a href="https://www.twilio.com/docs/libraries/node">Twilio node helper library</a></li>
+        <li><a href="https://www.twilio.com/docs/">Twilio developer docs</a></li>
+      </ul>
     </main>
 
     <footer>Made with <a href="https://glitch.com">Glitch</a>!</footer>

@@ -57,16 +57,17 @@ app.post("/sms", function(req, res) {
   const options = {
     to: process.env.YOUR_PHONE_NUMBER,
     from: process.env.TWILIO_PHONE_NUMBER,
-    body: `boop!`
+    body: req.body.message || 'boop!'
   };
 
   // Send the message!
   client.messages.create(options, function(err, response) {
     if (err) {
       console.error(err);
-      res.end('oh no');
+      res.end('oh no, there was an error! Check the app logs for more information.');
     } else {
-      res.end('yesss');
+      console.log('success!');
+      res.end('successfully sent your message! check your device');
     }
   });
 });
@@ -85,18 +86,18 @@ app.post("/mms", function(req, res) {
   const options = {
     to: process.env.YOUR_PHONE_NUMBER,
     from: process.env.TWILIO_PHONE_NUMBER,
-    mediaUrl: ['https://demo.twilio.com/owl.png'],
-    body: `hoot!`
+    mediaUrl: [req.body.media || 'https://demo.twilio.com/owl.png'],
+    body: req.body.message || 'hoot!'
   };
 
   // Send the message!
   client.messages.create(options, function(err, response) {
     if (err) {
       console.error(err);
-      res.end('oh no');
+      res.end('oh no, there was an error! Check the app logs for more information.');
     } else {
       console.log('success!');
-      res.end('success!');
+      res.end('successfully sent your message! check your device');
     }
   });
 });
