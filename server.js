@@ -13,12 +13,20 @@ app.use(function (req, res, next) {
 });
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function(request, response) {
-  if (process.env.TWILIO_ACCOUNT_SID) {
-    response.sendFile(__dirname + "/views/index.html");
+app.get("/", function(req, res) {
+  if (process.env.TWILIO_ACCOUNT_SID &&
+      process.env.TWILIO_PHONE_NUMBER &&
+      process.env.YOUR_PHONE_NUMBER &&
+      process.env.TWILIO_AUTH_TOKEN &&
+      process.env.SECRET) {
+    res.sendFile(__dirname + "/views/index.html");
   } else {
-    response.sendFile(__dirname + "/views/setup.html");
+    res.redirect('/setup');
   }
+});
+
+app.get("/setup", function(req, res) {
+  res.sendFile(__dirname + "/views/setup.html");
 });
 
 app.get("/setup-status", function (req, res) {
@@ -26,7 +34,7 @@ app.get("/setup-status", function (req, res) {
     "your-phone": !!process.env.YOUR_PHONE_NUMBER,
     "secret": !!process.env.SECRET,
     "credentials": !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN),
-    "twilio-number": !!process.env.TWILIO_PHONE_NUMBER
+    "twilio-phone": !!process.env.TWILIO_PHONE_NUMBER
   });
 });
 
