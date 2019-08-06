@@ -36,6 +36,10 @@
       </p>
       
       <p>
+        While signing up, you can streamline things by selecting that you write code, you want to "Explore Twilio", and you want to send and recieve SMS messages.
+      </p>
+      
+      <p>
         Along the way, they'll ask for a phone number. You'll also enter that phone number into the <code>.env</code> file of this project as the variable <code>YOUR_PHONE_NUMBER</code>. For example, if your phone number is (US) 555-867-5309, you'll put the following in <code>.env</code>:
       </p>
       
@@ -51,6 +55,31 @@ YOUR_PHONE_NUMBER=<mark>"+15558675309"</mark></code></pre>
         Twilio Phone Number
       </h3>
       
+      <p>
+        Twilio will provide you a phone number your code can use to send message from. You select via "Get A Trial Number" in your <a href="https://www.twilio.com/console">Twilio Developer Console</a>
+        This also goes into the <code>.env</code> file of this project:
+      </p>
+      
+      <pre><code># find these at https://www.twilio.com/console
+# TWILIO_PHONE_NUMBER=<mark>"+15551234567"</mark>
+# TWILIO_ACCOUNT_SID=XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+# TWILIO_AUTH_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+</code></pre>
+      
+      <h3 id="credentials">
+        Account Credentials<span></span>
+      </h3>
+      
+      <p>
+        You'll also need your "Account SID" and "Auth Token", both of which are also in the console. These are secrets, so be sure not to share them with anyone! The values in <code>.env</code> are only visible to the owner of the project, so you can safely paste them there:
+      </p>
+
+      <pre><code># find these at https://www.twilio.com/console
+# TWILIO_PHONE_NUMBER="+15551234567"
+# TWILIO_ACCOUNT_SID=<mark>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</mark>
+# TWILIO_AUTH_TOKEN=<mark>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</mark>
+</code></pre>
+
     </main>
 
     <footer>

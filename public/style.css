@@ -47,7 +47,14 @@ input {
 
 code {
   padding: .25em;
-  background: linen
+  background: azure;
+}
+pre {
+  background: azure;
+  padding: 1em;
+}
+pre code {
+  padding: 0;
 }
 
 a.button {
