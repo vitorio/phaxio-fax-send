@@ -49,6 +49,7 @@ button {
   background-color: lightgrey;
   border: 1px solid grey;
   box-shadow: 2px 2px teal;
+  padding: .25em .5em;
   cursor: pointer;
 }
 
