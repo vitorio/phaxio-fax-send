@@ -26,23 +26,26 @@
   <body>
     <header>
       <h1>
-        A Dream of the Future
+        Twilio SMS Demo
       </h1>
     </header>
 
     <main>
-      <p class="bold">Oh hi,</p>
       
-      <p>Tell me your hopes and dreams:</p>
-      
-      <form>
-        <input name="dream" type="text" maxlength="100" placeholder="Dreams!" aria-labelledby="submit-dream">
-        <button type="submit" id="submit-dream">Submit Dream</button>
+      <form method="post" action="/sms">
+        <label>Secret <input type="password" maxlength="100" name="secret"></label>
+        <button>
+          send SMS
+        </button>
       </form>
       
-      <section class="dreams">
-        <ul id="dreams"></ul>
-      </section>
+      <form method="post" action="/mms">
+        <label>Secret <input type="password" maxlength="100" name="secret"></label>
+        <button>
+          send MMS
+        </button>
+      </form>
+      
     </main>
 
     <footer>
