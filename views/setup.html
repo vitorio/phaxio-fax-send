@@ -11,8 +11,17 @@
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="/style.css">
     
+    <style>
+      h3.complete {
+        background: palegreen;
+      }
+      h3.complete:after {
+        content: '✅'
+      }
+    </style>
+    
     <!-- import the webpage's client-side javascript file -->
-    <script src="/client.js" defer></script>
+    <script src="/setup.js" defer></script>
   </head>
   <body>
     <header>
@@ -55,7 +64,7 @@ YOUR_PHONE_NUMBER=<mark>"+15558675309"</mark></code></pre>
         For your remix to run, you'll need a few pieces of information from Twilio.
       </p>
       
-      <h3 id="twilio-number">
+      <h3 id="twilio-phone">
         Twilio Phone Number
       </h3>
       

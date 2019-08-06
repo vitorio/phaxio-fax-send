@@ -21,7 +21,21 @@ app.get("/", function(request, response) {
   }
 });
 
-app.post("/sms", function(req, res, next) {
+app.get("/setup-status", function (req, res) {
+  res.json({
+    "your-phone": !!process.env.YOUR_PHONE_NUMBER,
+    "secret": !!process.env.SECRET,
+    "credentials": !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN),
+    "twilio-number": !!process.env.TWILIO_PHONE_NUMBER
+  });
+});
+
+app.post("/sms", function(req, res) {
+  if (!req.body.secret) {
+    res.redirect('/');
+    return;
+  }
+  
   if (req.body.secret !== process.env.SECRET) {
     res.status(403);
     res.end('incorrect secret!');
@@ -48,7 +62,12 @@ app.post("/sms", function(req, res, next) {
   });
 });
 
-app.post("/mms", function(req, res, next) {
+app.post("/mms", function(req, res) {
+  if (!req.body.secret) {
+    res.redirect('/');
+    return;
+  }
+  
   if (req.body.secret !== process.env.SECRET) {
     res.status(403);
     res.end('incorrect secret!');
