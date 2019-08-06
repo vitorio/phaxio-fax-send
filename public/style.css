@@ -45,6 +45,11 @@ input {
   font-size: 16px;
 }
 
+code {
+  padding: .25em;
+  background: linen
+}
+
 a.button {
   display: inline-block;
   text-decoration: none;
