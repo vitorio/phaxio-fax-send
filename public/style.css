@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  font-family: sans-serif;
   margin: 2em;
   line-height: 1.5;
 }
@@ -45,21 +45,29 @@ input {
   font-size: 16px;
 }
 
-button {
+a.button {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+a.button, button {
   font-size: 16px;
   border-radius: 3px;
-  background-color: lightgrey;
-  border: 1px solid grey;
-  box-shadow: 2px 2px teal;
+  background-color: darkorchid;
+  color: white;
+  border: 1px solid indigo;
+  box-shadow: 2px 2px black;
   padding: .25em 1em;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: yellow;
+a.button:hover, button:hover {
+  background-color: orchid;
+  color: black;
 }
 
-button:active {
+a.button:active, button:active {
   box-shadow: none;
 }
 
