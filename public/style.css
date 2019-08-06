@@ -66,16 +66,16 @@ a.button {
 a.button, button {
   font-size: 16px;
   border-radius: 3px;
-  background-color: darkorchid;
+  background-color: #f12e45;
   color: white;
-  border: 1px solid indigo;
+  border: 1px solid darkred;
   box-shadow: 2px 2px black;
   padding: .25em 1em;
   cursor: pointer;
 }
 
 a.button:hover, button:hover {
-  background-color: orchid;
+  background-color: pink;
   color: black;
 }
 

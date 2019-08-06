@@ -22,17 +22,20 @@
     </header>
 
     <main>
-      
+      <p>
+        This app is a demo of using Twilio's client library for sending SMS and MMS messages. Because it uses Twilio's trial account functionality, it's limited to sending messages to a fixed number.
+        To try it out for yourself, <a href="https://glitch.com/edit/#!/remix/basic-twilio-sms">remix this app</a>.
+      </p>
+      <h2>SMS (plain text)</h2>
       <form method="post" action="/sms">
-        <h2>SMS (plain text)</h2>
         <label>Secret <input type="password" maxlength="100" name="secret"></label>
         <button>
           send SMS
         </button>
       </form>
       
+      <h2>MMS (with media)</h2>
       <form method="post" action="/mms">
-        <h2>MMS (with media)</h2>
         <label>Secret <input type="password" maxlength="100" name="secret"></label>
         <button>
           send MMS

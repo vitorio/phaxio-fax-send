@@ -1,17 +1,15 @@
-Welcome to Glitch
-=================
+Twilio SMS Demo
+===============
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
-
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
-
-Find out more [about Glitch](https://glitch.com/about).
+This app is a demo of using Twilio's client library for sending SMS and MMS messages. Because it uses Twilio's trial account functionality, it's limited to sending messages to a fixed number. To try it out for yourself, remix this app.
 
 
 Your Project
 ------------
 
 On the front-end,
+* `views/index.html` is the app's UI
+8 `public/style.`
 - edit `public/client.js`, `public/style.css` and `views/index.html`
 - drag in `assets`, like images or music, to add them to your project
 

@@ -3,17 +3,19 @@ const express = require("express");
 const app = express();
 const Twilio = require("twilio");
 
-// http://expressjs.com/en/starter/static-files.html
+// setup form and post handling
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// serve static files
 app.use(express.static("public"));
+// log requests
 app.use(function (req, res, next) {
   console.log(req.method, req.url);
   next();
 });
 
-// http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function(req, res) {
+  // show the setup page if the env isn't configured
   if (process.env.TWILIO_ACCOUNT_SID &&
       process.env.TWILIO_PHONE_NUMBER &&
       process.env.YOUR_PHONE_NUMBER &&
@@ -25,6 +27,7 @@ app.get("/", function(req, res) {
   }
 });
 
+// code for the setup flow
 app.get("/setup", function(req, res) {
   res.sendFile(__dirname + "/views/setup.html");
 });
@@ -38,17 +41,16 @@ app.get("/setup-status", function (req, res) {
   });
 });
 
+// example code
 app.post("/sms", function(req, res) {
-  if (!req.body.secret) {
-    res.redirect('/');
-    return;
-  }
-  
-  if (req.body.secret !== process.env.SECRET) {
+  // check for secret
+  if (!req.body.secret || req.body.secret !== process.env.SECRET) {
     res.status(403);
     res.end('incorrect secret!');
     return;
   }
+
+  // setup twilio client
   const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
   // Create options to send the message
@@ -64,23 +66,19 @@ app.post("/sms", function(req, res) {
       console.error(err);
       res.end('oh no');
     } else {
-      console.log('success!');
       res.end('yesss');
     }
   });
 });
 
+
 app.post("/mms", function(req, res) {
-  if (!req.body.secret) {
-    res.redirect('/');
-    return;
-  }
-  
-  if (req.body.secret !== process.env.SECRET) {
+   if (!req.body.secret || req.body.secret !== process.env.SECRET) {
     res.status(403);
     res.end('incorrect secret!');
     return;
   }
+
   const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
   // Create options to send the message
