@@ -24,14 +24,20 @@
 
     <main>
       <p>
-        This app is a demo of using Twilio's client library for sending SMS and
-        MMS messages. Because it uses Twilio's trial account functionality, it's
-        limited to sending messages to a fixed number. To try it out for
-        yourself,
-        <a href="https://glitch.com/edit/#!/remix/basic-twilio-sms">remix this app</a>.
+        Send a PDF as a fax for XOXO frands!
+      </p>
+      <p>
+        Faxes are sent using Twilio from the number +1 337 329 9696 (FAX XOXO).
+      </p>
+      <p>
+        Faxes are uploaded as PDFs and stored in Glitch's <code>/tmp</code> storage.
+        They are deleted five minutes after last use.
+        Twilio is configured to not store the sent faxes.
+        Don't trust this?  Create a Twilio account, set up a fax number, and 
+        <a href="https://glitch.com/edit/#!/remix/cold-zircon-vest">remix this app</a>.
       </p>
 
-      <h2>MMS (with media)</h2>
+      <h2>📠</h2>
       <form method="post" action="/mms">
         <label>
           PDF of fax to send
@@ -39,25 +45,20 @@
         </label>
         <label>
           Phone number to send to (+18005551212)
-          <input type="text" name="to" placeholder="+13373299696">
+          <input type="text" name="to" placeholder="+18005551212">
         </label>
         <label>
-          Secret (from <code>.env</code> file)
+          Password (from XOXO Slack)
           <input type="password" maxlength="100" name="secret"/>
         </label>
         <button>send fax</button>
       </form>
       
-      <h3>
-        More Info
-      </h3>
-      <ul>
-        <li><a href="https://www.twilio.com/docs/libraries/node">Twilio node helper library</a></li>
-        <li><a href="https://www.twilio.com/docs/">Twilio developer docs</a></li>
-      </ul>
     </main>
 
-    <footer>Made with <a href="https://glitch.com">Glitch</a>!</footer>
+    <footer>Made with <a href="https://glitch.com">Glitch</a>
+      and <a href="https://www.twilio.com">Twilio</a>
+      by <a href="http://vitor.io">Vitorio</a>.</footer>
 
     <!-- include the Glitch button to show what the webpage is about and
           to make it easier for folks to view source and remix -->
