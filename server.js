@@ -5,7 +5,7 @@
 const express = require("express");
 const app = express();
 const Twilio = require("twilio");
-const fileUpload = require('express-fileupload');
+const fileUpload = require("express-fileupload");
 
 // setup form and post handling
 app.use(express.json());
@@ -20,16 +20,16 @@ app.use(function (req, res, next) {
 // use container temp dir to avoid memory limits
 app.use(fileUpload({
   useTempFiles : true,
-  tempFileDir : '/tmp',
+  tempFileDir : '/tmp/faxfiles',
   safeFileNames : true,
   preserveExtension : true
 }));
+app.use('/faxfiles', express.static('/tmp/faxfiles'))
 
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
   if (process.env.TWILIO_ACCOUNT_SID &&
       process.env.TWILIO_PHONE_NUMBER &&
-      process.env.YOUR_PHONE_NUMBER &&
       process.env.TWILIO_AUTH_TOKEN &&
       process.env.SECRET) {
     res.sendFile(__dirname + "/views/index.html");
@@ -45,7 +45,6 @@ app.get("/setup", function(req, res) {
 
 app.get("/setup-status", function (req, res) {
   res.json({
-    "your-phone": !!process.env.YOUR_PHONE_NUMBER,
     "secret": !!process.env.SECRET,
     "credentials": !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN),
     "twilio-phone": !!process.env.TWILIO_PHONE_NUMBER
@@ -66,11 +65,12 @@ app.post("/mms", function(req, res) {
   if (!req.body.to) {
     return res.status(400).send('No destination phone number was provided.');
   }
-  
 
   if (req.files.fax.mimetype != "application/pdf") {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
+  
+  return res.status(200).send(req.files.fax.tempFilePath);
   
   const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
@@ -91,10 +91,6 @@ app.post("/mms", function(req, res) {
       res.end('successfully sent your message! check your device');
     }
   });
-});
-
-app.get("/faxfile", function(req, res) {
-  res.sendFile(__dirname + "/views/setup.html");
 });
 
 // listen for requests :)
