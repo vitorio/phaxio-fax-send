@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Twilio SMS Demo</title>
+    <title>XOXO fax</title>
     <meta name="description" content="A cool thing made with Glitch" />
     <link
       id="favicon"
@@ -20,7 +20,7 @@
     <script src="/client.js" defer></script>
   </head>
   <body>
-    <header><h1>Twilio SMS Demo</h1></header>
+    <header><h1>XOXO fax</h1></header>
 
     <main>
       <p>
@@ -34,18 +34,18 @@
       <h2>MMS (with media)</h2>
       <form method="post" action="/mms">
         <label>
-          URL of image to send
-          <input type="text" name="media" placeholder="https://demo.twilio.com/owl.png">
+          PDF of fax to send
+          <input type="file" name="fax" id='fax' accept='.pdf'>
         </label>
         <label>
-          Text of message to send
-          <input type="text" name="message" placeholder="hoot!">
+          Phone number to send to (+18005551212)
+          <input type="text" name="to" placeholder="+13373299696">
         </label>
         <label>
           Secret (from <code>.env</code> file)
           <input type="password" maxlength="100" name="secret"/>
         </label>
-        <button>send MMS</button>
+        <button>send fax</button>
       </form>
       
       <h3>
