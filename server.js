@@ -17,9 +17,12 @@ app.use(function (req, res, next) {
   console.log(req.method, req.url);
   next();
 });
+// use container temp dir to avoid memory limits
 app.use(fileUpload({
   useTempFiles : true,
-  tempFileDir : '/tmp/'
+  tempFileDir : '/tmp',
+  safeFileNames : true,
+  preserveExtension : true
 }));
 
 app.get("/", function(req, res) {
@@ -56,7 +59,7 @@ app.post("/mms", function(req, res) {
     return;
   }
   
-  if (!req.files.fax || !req.body.to) {
+  if (!req.files || !req.files.fax) {
     return res.status(400).send('No PDF was uploaded.');
   }
   
@@ -88,6 +91,10 @@ app.post("/mms", function(req, res) {
       res.end('successfully sent your message! check your device');
     }
   });
+});
+
+app.get("/faxfile", function(req, res) {
+  res.sendFile(__dirname + "/views/setup.html");
 });
 
 // listen for requests :)
