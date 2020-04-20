@@ -52,7 +52,7 @@ app.get("/setup-status", function (req, res) {
 app.post("/mms", function(req, res) {
   if (!req.body.secret || req.body.secret !== process.env.SECRET) {
     res.status(403);
-    res.end('incorrect secret!');
+    res.end('Incorrect password.');
     return;
   }
   
@@ -60,6 +60,11 @@ app.post("/mms", function(req, res) {
     return res.status(400).send('No PDF was uploaded.');
   }
   
+  if (!req.body.to) {
+    return res.status(400).send('No destination phone number was provided.');
+  }
+  
+
   if (req.files.fax.mimetype != "application/pdf") {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
