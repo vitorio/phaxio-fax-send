@@ -17,7 +17,10 @@ app.use(function (req, res, next) {
   console.log(req.method, req.url);
   next();
 });
-app.use(fileUpload());
+app.use(fileUpload({
+  useTempFiles : true,
+  tempFileDir : '/tmp/'
+}));
 
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
@@ -53,11 +56,11 @@ app.post("/mms", function(req, res) {
     return;
   }
   
-  if (!req.files.img) {
+  if (!req.files.fax || !req.body.to) {
     return res.status(400).send('No PDF was uploaded.');
   }
   
-  if (req.files.img.mimetype != "application/pdf") {
+  if (req.files.fax.mimetype != "application/pdf") {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
   
@@ -65,10 +68,9 @@ app.post("/mms", function(req, res) {
 
   // Create options to send the message
   const options = {
-    to: process.env.YOUR_PHONE_NUMBER,
+    to: req.body.to,
     from: process.env.TWILIO_PHONE_NUMBER,
-    mediaUrl: [req.body.media || 'https://demo.twilio.com/owl.png'],
-    body: req.body.message || 'hoot!'
+    mediaUrl: [req.body.media || 'https://demo.twilio.com/owl.png']
   };
 
   // Send the message!
