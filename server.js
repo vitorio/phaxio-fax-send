@@ -47,12 +47,20 @@ app.get("/setup-status", function (req, res) {
 });
 
 app.post("/mms", function(req, res) {
-   if (!req.body.secret || req.body.secret !== process.env.SECRET) {
+  if (!req.body.secret || req.body.secret !== process.env.SECRET) {
     res.status(403);
     res.end('incorrect secret!');
     return;
   }
-
+  
+  if (!req.files.img) {
+    return res.status(400).send('No PDF was uploaded.');
+  }
+  
+  if (req.files.img.mimetype != "application/pdf") {
+    return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
+  }
+  
   const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
   // Create options to send the message
