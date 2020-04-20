@@ -41,38 +41,6 @@ app.get("/setup-status", function (req, res) {
   });
 });
 
-// example code
-app.post("/sms", function(req, res) {
-  // check for secret
-  if (!req.body.secret || req.body.secret !== process.env.SECRET) {
-    res.status(403);
-    res.end('incorrect secret!');
-    return;
-  }
-
-  // setup twilio client
-  const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-
-  // Create options to send the message
-  const options = {
-    to: process.env.YOUR_PHONE_NUMBER,
-    from: process.env.TWILIO_PHONE_NUMBER,
-    body: req.body.message || 'boop!'
-  };
-
-  // Send the message!
-  client.messages.create(options, function(err, response) {
-    if (err) {
-      console.error(err);
-      res.end('oh no, there was an error! Check the app logs for more information.');
-    } else {
-      console.log('success!');
-      res.end('successfully sent your message! check your device');
-    }
-  });
-});
-
-
 app.post("/mms", function(req, res) {
    if (!req.body.secret || req.body.secret !== process.env.SECRET) {
     res.status(403);
