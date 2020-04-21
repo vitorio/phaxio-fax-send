@@ -83,11 +83,11 @@ app.post("/mms", function(req, res) {
   client.fax.faxes.create(options, function(err, response) {
     if (err) {
       console.error(err);
-      res.end('oh no, there was an error! Check the app logs for more information.');
+      res.end('oh no, there was a fax sending error! Check the app logs for more information.');
     } else {
       console.log('success!');
       console.log(response.sid);
-      res.end('successfully sent your message! check your device');
+      res.redirect('/fax-status?id=' + response.sid);
     }
   });
 });
@@ -99,25 +99,15 @@ app.get("/fax-status", function(req, res) {
   
   const client = new Twilio(process.env.TWILIO_API_KEY, process.env.TWILIO_API_SECRET, { accountSid: process.env.TWILIO_ACCOUNT_SID });
   
-  // Create options to send the message
-client.fax.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-          .fetch()
-          .then(fax => console.log(fax.to));  const options = {
-    to: req.body.to,
-    from: process.env.TWILIO_PHONE_NUMBER,
-    mediaUrl: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp', ''),
-    StoreMedia: false
-  };
-
-  // Send the message!
-  client.fax.faxes(req.query.id).create(options, function(err, response) {
+  // check status
+  client.fax.faxes(req.query.id).fetch(function(err, response) {
     if (err) {
       console.error(err);
-      res.end('oh no, there was an error! Check the app logs for more information.');
+      res.end('oh no, there was a fax status error! Check the app logs for more information.');
     } else {
       console.log('success!');
-      console.log(response.sid);
-      res.end('successfully sent your message! check your device');
+      console.log(response);
+      res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status);
     }
   });
 });
