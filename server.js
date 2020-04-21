@@ -24,7 +24,7 @@ app.use(fileUpload({
   safeFileNames : true,
   preserveExtension : true
 }));
-app.use('/faxfiles', express.static('/tmp/faxfiles'))
+app.use('/faxfiles', [Twilio.webhook(), express.static('/tmp/faxfiles')])
 
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
@@ -85,8 +85,7 @@ app.post("/mms", function(req, res) {
       console.error(err);
       res.end('oh no, there was a fax sending error! Check the app logs for more information.');
     } else {
-      console.log('success!');
-      console.log(response.sid);
+      console.log(options.mediaUrl);
       res.redirect('/fax-status?id=' + response.sid);
     }
   });
@@ -105,9 +104,8 @@ app.get("/fax-status", function(req, res) {
       console.error(err);
       res.end('oh no, there was a fax status error! Check the app logs for more information.');
     } else {
-      console.log('success!');
       console.log(response);
-      res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status);
+      res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status + ' (refresh for updates)');
     }
   });
 });
