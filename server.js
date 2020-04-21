@@ -53,9 +53,7 @@ app.get("/setup-status", function (req, res) {
 
 app.post("/mms", function(req, res) {
   if (!req.body.secret || req.body.secret !== process.env.SECRET) {
-    res.status(403);
-    res.end('Incorrect password.');
-    return;
+    return res.status(403).send('Incorrect password.');
   }
   
   if (!req.files || !req.files.fax) {
@@ -65,29 +63,37 @@ app.post("/mms", function(req, res) {
   if (!req.body.to) {
     return res.status(400).send('No destination phone number was provided.');
   }
-
+  
   if (req.files.fax.mimetype != "application/pdf") {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
   
-  return res.status(200).send(req.files.fax.tempFilePath);
-  
   const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-
+  
   // Create options to send the message
   const options = {
     to: req.body.to,
     from: process.env.TWILIO_PHONE_NUMBER,
-    mediaUrl: [req.body.media || 'https://demo.twilio.com/owl.png']
+    mediaUrl: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp', ''),
+    StoreMedia: false
   };
 
+  client.fax.faxes
+  .create({
+     from: '+15017122661',
+     to: '+15558675310',
+     mediaUrl: 'https://www.twilio.com/docs/documents/25/justthefaxmaam.pdf'
+   })
+  .then(fax => console.log(fax.sid));
+  
   // Send the message!
-  client.messages.create(options, function(err, response) {
+  client.fax.faxes.create(options, function(err, response) {
     if (err) {
       console.error(err);
       res.end('oh no, there was an error! Check the app logs for more information.');
     } else {
       console.log('success!');
+      fax => console.log(fax.sid);
       res.end('successfully sent your message! check your device');
     }
   });
