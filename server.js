@@ -6,7 +6,7 @@ const express = require("express");
 const app = express();
 const Twilio = require("twilio");
 const fileUpload = require("express-fileupload");
-const webhooks = require('twilio/lib/webhooks/webhooks');
+const crypto = require('crypto');
 
 // setup form and post handling
 app.use(express.json());
@@ -29,7 +29,10 @@ app.use('/faxfiles', function(req, res, next) {
   console.log(req.headers);
   console.log(req.hostname);
   console.log(req.url);
-  webhooks.getExpectedTwilioSignature(process.env.TWILIO_AUTH_TOKEN, 'https://' + req.hostname + '/faxfiles' + req.url)
+  
+  var url = 'https://' + req.hostname + '/faxfiles' + req.url + '?x-twilio-faxsid=' + req.headers['x-twilio-faxsid'];
+  console.log(url);
+  console.log(crypto.createHmac('sha1', process.env.TWILIO_AUTH_TOKEN).update(url).digest('Base64'));
   next();
 }, Twilio.webhook(), express.static('/tmp/faxfiles'))
 
