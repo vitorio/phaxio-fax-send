@@ -26,13 +26,11 @@ app.use(fileUpload({
   preserveExtension : true
 }));
 app.use('/faxfiles', function(req, res, next) {
-  console.log(req.headers);
-  console.log(req.hostname);
-  console.log(req.url);
-  
-  var url = 'https://' + req.hostname + '/faxfiles' + req.url + '?x-twilio-faxsid=' + req.headers['x-twilio-faxsid'];
+  console.log(req.headers['x-twilio-signature']);
+  console.log(req.originalUrl);
+  var url = 'https://' + req.hostname + ':443/faxfiles' + req.url;
   console.log(url);
-  console.log(crypto.createHmac('sha1', process.env.TWILIO_AUTH_TOKEN).update(url).digest('Base64'));
+  console.log(crypto.createHmac('sha1', process.env.TWILIO_AUTH_TOKEN).update(req.originalUrl).digest('Base64'));
   next();
 }, Twilio.webhook(), express.static('/tmp/faxfiles'))
 
