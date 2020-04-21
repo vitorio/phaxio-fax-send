@@ -30,7 +30,8 @@ app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
   if (process.env.TWILIO_ACCOUNT_SID &&
       process.env.TWILIO_PHONE_NUMBER &&
-      process.env.TWILIO_AUTH_TOKEN &&
+      process.env.TWILIO_API_KEY &&
+      process.env.TWILIO_API_SECRET &&
       process.env.SECRET) {
     res.sendFile(__dirname + "/views/index.html");
   } else {
@@ -46,7 +47,7 @@ app.get("/setup", function(req, res) {
 app.get("/setup-status", function (req, res) {
   res.json({
     "secret": !!process.env.SECRET,
-    "credentials": !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN),
+    "credentials": !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_API_KEY && process.env.TWILIO_API_SECRET),
     "twilio-phone": !!process.env.TWILIO_PHONE_NUMBER
   });
 });
@@ -68,7 +69,7 @@ app.post("/mms", function(req, res) {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
   
-  const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+  const client = new Twilio(process.env.TWILIO_API_KEY, process.env.TWILIO_API_SECRET, { accountSid: process.env.TWILIO_ACCOUNT_SID });
   
   // Create options to send the message
   const options = {
