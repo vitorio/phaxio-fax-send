@@ -93,26 +93,16 @@ app.post("/mms", function(req, res) {
 });
 
 app.get("/fax-status", function(req, res) {
-  if (!req.body.secret || req.body.secret !== process.env.SECRET) {
-    return res.status(403).send('Incorrect password.');
-  }
-  
-  if (!req.files || !req.files.fax) {
-    return res.status(400).send('No PDF was uploaded.');
-  }
-  
-  if (!req.body.to) {
-    return res.status(400).send('No destination phone number was provided.');
-  }
-  
-  if (req.files.fax.mimetype != "application/pdf") {
-    return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
+  if (!req.query || !req.query.id) {
+    return res.status(400).send('Missing fax ID.');
   }
   
   const client = new Twilio(process.env.TWILIO_API_KEY, process.env.TWILIO_API_SECRET, { accountSid: process.env.TWILIO_ACCOUNT_SID });
   
   // Create options to send the message
-  const options = {
+client.fax.faxes('FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+          .fetch()
+          .then(fax => console.log(fax.to));  const options = {
     to: req.body.to,
     from: process.env.TWILIO_PHONE_NUMBER,
     mediaUrl: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp', ''),
@@ -120,7 +110,7 @@ app.get("/fax-status", function(req, res) {
   };
 
   // Send the message!
-  client.fax.faxes.create(options, function(err, response) {
+  client.fax.faxes(req.query.id).create(options, function(err, response) {
     if (err) {
       console.error(err);
       res.end('oh no, there was an error! Check the app logs for more information.');
