@@ -78,14 +78,6 @@ app.post("/mms", function(req, res) {
     StoreMedia: false
   };
 
-  client.fax.faxes
-  .create({
-     from: '+15017122661',
-     to: '+15558675310',
-     mediaUrl: 'https://www.twilio.com/docs/documents/25/justthefaxmaam.pdf'
-   })
-  .then(fax => console.log(fax.sid));
-  
   // Send the message!
   client.fax.faxes.create(options, function(err, response) {
     if (err) {
@@ -93,7 +85,7 @@ app.post("/mms", function(req, res) {
       res.end('oh no, there was an error! Check the app logs for more information.');
     } else {
       console.log('success!');
-      fax => console.log(fax.sid);
+      console.log(this.sid);
       res.end('successfully sent your message! check your device');
     }
   });
