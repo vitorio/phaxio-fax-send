@@ -86,7 +86,7 @@ app.post("/mms", function(req, res) {
       res.end('oh no, there was an error! Check the app logs for more information.');
     } else {
       console.log('success!');
-      console.log(this.sid);
+      console.log(response.sid);
       res.end('successfully sent your message! check your device');
     }
   });
