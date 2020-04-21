@@ -24,7 +24,7 @@ app.use(fileUpload({
   safeFileNames : true,
   preserveExtension : true
 }));
-app.use('/faxfiles', Twilio.webhook(), express.static('/tmp/faxfiles'))
+app.use('/faxfiles', express.static('/tmp/faxfiles'))
 
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
