@@ -88,7 +88,7 @@ app.post("/mms", function(req, res) {
     to: req.body.to,
     from: process.env.TWILIO_PHONE_NUMBER,
     mediaUrl: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp', ''),
-    StoreMedia: false
+    storeMedia: false
   };
 
   // Send the message!
