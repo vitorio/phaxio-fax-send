@@ -120,7 +120,7 @@ app.get("/fax-status", function(req, res) {
     } else {
       var price = '$0.00';
       if (response.price) price = '$' + response.price.replace('-', '');
-      res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status + ' costing $' + response.price.replace('-', '') + ' (refresh for updates)');
+      res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status + ' costing ' + price + ' (refresh for updates)');
     }
   });
 });
