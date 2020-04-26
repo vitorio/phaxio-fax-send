@@ -27,7 +27,7 @@ app.use(fileUpload({
 }));
 
 // Twilio.webhook() doesn't seem to properly validate fax GET requests, so doing them by hand
-app.use('/faxfiles', function(req, res, next) {
+app.use('/fax-files', function(req, res, next) {
   var url = 'https://' + req.hostname + req.originalUrl;
   var sig = crypto.createHmac('sha1', process.env.TWILIO_AUTH_TOKEN).update(Buffer.from(url, 'utf-8')).digest('base64');
   
@@ -38,14 +38,13 @@ app.use('/faxfiles', function(req, res, next) {
 
   next();
 });
-app.use('/faxfiles', express.static('/tmp/faxfiles'))
+app.use('/fax-files', express.static('/tmp/faxfiles'))
 
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
   if (process.env.TWILIO_ACCOUNT_SID &&
       process.env.TWILIO_PHONE_NUMBER &&
-      process.env.TWILIO_API_KEY &&
-      process.env.TWILIO_API_SECRET &&
+      process.env.TWILIO_AUTH_TOKEN &&
       process.env.SECRET) {
     res.sendFile(__dirname + "/views/index.html");
   } else {
@@ -61,12 +60,12 @@ app.get("/setup", function(req, res) {
 app.get("/setup-status", function (req, res) {
   res.json({
     "secret": !!process.env.SECRET,
-    "credentials": !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_API_KEY && process.env.TWILIO_API_SECRET),
+    "credentials": !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN),
     "twilio-phone": !!process.env.TWILIO_PHONE_NUMBER
   });
 });
 
-app.post("/mms", function(req, res) {
+app.post("/send-fax", function(req, res) {
   if (!req.body.secret || req.body.secret !== process.env.SECRET) {
     return res.status(403).send('Incorrect password.');
   }
@@ -83,13 +82,13 @@ app.post("/mms", function(req, res) {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
   
-  const client = new Twilio(process.env.TWILIO_API_KEY, process.env.TWILIO_API_SECRET, { accountSid: process.env.TWILIO_ACCOUNT_SID });
+  const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
   
   // Create options to send the message
   const options = {
     to: req.body.to,
     from: process.env.TWILIO_PHONE_NUMBER,
-    mediaUrl: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp', ''),
+    mediaUrl: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp/faxfiles', '/fax-files'),
     storeMedia: false
   };
 
@@ -110,7 +109,7 @@ app.get("/fax-status", function(req, res) {
     return res.status(400).send('Missing fax ID.');
   }
   
-  const client = new Twilio(process.env.TWILIO_API_KEY, process.env.TWILIO_API_SECRET, { accountSid: process.env.TWILIO_ACCOUNT_SID });
+  const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
   
   // check status
   client.fax.faxes(req.query.id).fetch(function(err, response) {
@@ -118,7 +117,6 @@ app.get("/fax-status", function(req, res) {
       console.error(err);
       res.end('oh no, there was a fax status error! Check the app logs for more information.');
     } else {
-      console.log(response);
       var price = '$0.00';
       if (response.price) price = '$' + (response.price * -1.0);
       res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status + ' costing ' + price + ' (refresh for updates)');

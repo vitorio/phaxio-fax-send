@@ -2,13 +2,8 @@
 <html lang="en">
   <head>
     <title>XOXO fax</title>
-    <meta name="description" content="A cool thing made with Glitch" />
-    <link
-      id="favicon"
-      rel="icon"
-      href="https://glitch.com/edit/favicon-app.ico"
-      type="image/x-icon"
-    />
+    <meta name="description" content="Send a PDF as a fax for XOXO frands!" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📠</text></svg>">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,7 +33,7 @@
       </p>
 
       <h2>📠</h2>
-      <form method="post" action="/mms" enctype="multipart/form-data">
+      <form method="post" action="/send-fax" enctype="multipart/form-data">
         <label>
           PDF of fax to send
           <input type="file" name="fax" id="fax" accept=".pdf">
