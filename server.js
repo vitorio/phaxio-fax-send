@@ -26,9 +26,15 @@ app.use(fileUpload({
   preserveExtension : true
 }));
 
+// Twilio.webhook() doesn't seem to validate fax GET requests, so doing them by hand
 app.use('/faxfiles', function(req, res, next) {
   var url = 'https://' + req.hostname + req.originalUrl;
   var sig = crypto.createHmac('sha1', process.env.TWILIO_AUTH_TOKEN).update(Buffer.from(url, 'utf-8')).digest('base64');
+  
+  if (req.header['x-twilio-signature'] !== sig) {
+    return res.status(403).send('File requested without Twilio signature.');
+  }
+
   next();
 });
 // app.use('/faxfiles', Twilio.webhook());
