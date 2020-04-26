@@ -35,9 +35,8 @@ app.use('/faxfiles', function(req, res, next) {
   console.log(crypto.createHmac('sha1', process.env.TWILIO_AUTH_TOKEN).update(Buffer.from(url, 'utf-8')).digest('base64'));
   next();
 });
-app.use('/faxfiles', Twilio.webhook());
-*/
-app.use('/faxfiles', express.static('/tmp/faxfiles'))
+// app.use('/faxfiles', Twilio.webhook());
+// app.use('/faxfiles', express.static('/tmp/faxfiles'))
 
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
