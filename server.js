@@ -26,8 +26,9 @@ app.use(fileUpload({
   preserveExtension : true
 }));
 
-/* Can't seem to figure out why the Twilio request isn't validating!
+// Can't seem to figure out why the Twilio request isn't validating!
 app.use('/faxfiles', function(req, res, next) {
+  console.log(req.headers);
   console.log(req.headers['x-twilio-signature']);
   var url = 'https://' + req.hostname + req.originalUrl + '?';
   console.log(url);
