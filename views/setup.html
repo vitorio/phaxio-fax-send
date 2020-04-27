@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>XOXO fax send setup</title>
+    <title>Setup for XOXO fax send</title>
     <meta name="description" content="Send a PDF as a fax for XOXO frands!">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📠</text></svg>">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.glitch.com/29d80af9-3e0a-4389-8807-cea9e546df37%2Fapple-touch-icon.png?v=1587944998403">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.glitch.com/29d80af9-3e0a-4389-8807-cea9e546df37%2Ffavicon-32x32.png?v=1587944998424">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.glitch.com/29d80af9-3e0a-4389-8807-cea9e546df37%2Ffavicon-16x16.png?v=1587944998373">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,14 +28,14 @@
   <body>
     <header>
       <h1>
-        Twilio SMS Demo Setup
+        Setup for XOXO fax send
       </h1>
     </header>
 
     <main>
       
       <h2>
-        You're on your way!
+        Hi
       </h2>
       
       <p>
@@ -41,19 +43,11 @@
       </p>
       
       <p>
-        This is a basic example of how to use Twilio's SMS API to send texts. To continue, you'll need a developer account from Twilio. Already have one? just continue below.
+        This is a basic system that uses Twilio's Fax API to send faxes. To set it up for yourself or your own friend group, you'll need a developer account from Twilio, which is out of scope of this document.
       </p>
       
       <p>
-        <a href="https://www.twilio.com/try-twilio" target="_blank" class="button">sign up for a twilio account</a>
-      </p>
-      
-      <p>
-        While signing up, you can streamline things by selecting that you write code, you want to "Explore Twilio", and you want to send and recieve SMS messages.
-      </p>
-      
-      <p>
-        For your remix to run, you'll also need a few pieces of information from Twilio. You can find them in the <a target="_blank" href="https://www.twilio.com/console">Twilio Developer Console</a>.
+        Once you have a funded Twilio account, you'll need a phone number, and two codes from the <a target="_blank" href="https://www.twilio.com/console">Twilio Developer Console</a>.
       </p>
       
       <h3 id="twilio-phone">
@@ -61,7 +55,7 @@
       </h3>
       
       <p>
-        Twilio will provide you a phone number your code can use to send message from. You select via "Get A Trial Number" in the developer console.
+        Buy a phone number from Twilio to send faxes from it.
         This also goes into the <code>.env</code> file of this project:
       </p>
       
@@ -85,6 +79,11 @@
 # TWILIO_AUTH_TOKEN=<mark>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</mark>
 </code></pre>
       
+      <p>
+        You'll also need your "Account SID" and "Auth Token", both of which are also in the console. These are secrets, so be sure not to share them with anyone! The values in <code>.env</code> are only visible to the owner of the project, so you can safely paste them there:
+      </p>
+
+
       <h3 id="secret">
         A Secret!
       </h3>

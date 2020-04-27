@@ -39,7 +39,6 @@ app.use('/fax-files', function(req, res, next) {
   next();
 });
 app.use('/fax-files', express.static('/tmp/faxfiles'))
-app.use('/favicon.ico', express.static('/public/favicon.ico'))
 
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
