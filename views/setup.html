@@ -35,7 +35,7 @@
     <main>
       
       <h2>
-        Hi
+        👋🏽
       </h2>
       
       <p>
@@ -80,24 +80,24 @@
 </code></pre>
       
       <p>
-        You'll also need your "Account SID" and "Auth Token", both of which are also in the console. These are secrets, so be sure not to share them with anyone! The values in <code>.env</code> are only visible to the owner of the project, so you can safely paste them there:
+        (You might see options to generate and use API Keys instead, but we always need to provide the Account SID, and to validate requests from Twilio we need the Auth Token as well anyway.)
       </p>
-
 
       <h3 id="secret">
         A Secret!
       </h3>
       
       <p>
-        This app will send an SMS to a phone number, and we don't want just anyone to be able to do that! Pick out a secret phrase or password you can use to make sure only you can send a message from the app, and add it to <code>.env</code>
+        This app will send a real fax to a phone number and charge you money for doing so, and we don't want just anyone to be able to do that! Pick out a secret phrase or password you can use to make sure only you and your friends can send a fax from the app, and add it to <code>.env</code>
       </p>
 
-      <pre><code># let's not let just anyone text you
+      <pre><code># let's not let just anyone fax you
 SECRET=<mark>XXXXXXXX</mark></code></pre>
     </main>
 
     <footer>
-      Made with <a href="https://glitch.com">Glitch</a>!
+      Made with <a href="https://glitch.com">Glitch</a> and <a href="https://www.twilio.com">Twilio</a>
+      by <a href="http://vitor.io">Vitorio</a> for <a href="https://xoxofest.com/">XOXO</a>.
     </footer>
 
     <!-- include the Glitch button to show what the webpage is about and
