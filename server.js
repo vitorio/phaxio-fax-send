@@ -78,6 +78,10 @@ app.post("/send-fax", function(req, res) {
     return res.status(400).send('No destination phone number was provided.');
   }
   
+  if (req.body.quality !== "standard" && req.body.quality !== "fine" && req.body.quality !== "superfine") {
+    return res.status(400).send('Invalid quality.');
+  }  
+
   if (req.files.fax.mimetype != "application/pdf") {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
@@ -89,6 +93,7 @@ app.post("/send-fax", function(req, res) {
     to: req.body.to,
     from: process.env.TWILIO_PHONE_NUMBER,
     mediaUrl: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp/faxfiles', '/fax-files'),
+    quality: req.body.quality,
     storeMedia: false
   };
 
@@ -119,7 +124,8 @@ app.get("/fax-status", function(req, res) {
     } else {
       var price = '$0.00';
       if (response.price) price = '$' + (response.price * -1.0);
-      res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status + ' costing ' + price + ' (refresh for updates)');
+      res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status + ' in ' + response.quality + ' quality costing ' + price + ' (refresh for updates)');
+      if (response.status == 'failed') console.error(response);
     }
   });
 });
