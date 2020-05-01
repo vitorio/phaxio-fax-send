@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.0/css/intlTelInput.css">
     <link rel="stylesheet" href="/style.css" />
 
     <!-- import the webpage's client-side javascript file -->
@@ -41,8 +42,8 @@
           <input type="file" name="fax" id="fax" accept=".pdf">
         </label>
         <label>
-          Phone number to send to (+18005551212)
-          <input type="text" name="to" placeholder="+18005551212">
+          Phone number to send to
+          <input type="tel" name="phone" id="phone">
         </label>
         <label for="quality-select">
           Quality
@@ -79,5 +80,14 @@
           to make it easier for folks to view source and remix -->
     <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
     <script src="https://button.glitch.me/button.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.0/js/intlTelInput.min.js"></script>
+    <script>
+      var input = document.querySelector("#phone");
+      window.intlTelInput(input, {
+        hiddenInput: "to",
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.0/js/utils.js",
+      });
+    </script>
   </body>
 </html>
