@@ -45,7 +45,6 @@
           Phone number to send to
           <input type="tel" name="phone" id="phone">
         </label>
-        <br style="line-height: 1.5;">
         <label for="quality-select">
           Quality
           <select name="quality" id="quality-select">
@@ -87,6 +86,7 @@
       var input = document.querySelector("#phone");
       window.intlTelInput(input, {
         hiddenInput: "to",
+        initialCountry: "US",
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.0/js/utils.js",
       });
     </script>
