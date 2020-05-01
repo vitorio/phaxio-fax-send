@@ -100,7 +100,6 @@ footer {
 }
 
 .iti {
-  /*display: block;*/
   margin-bottom: 10px;
 }
 
@@ -109,5 +108,5 @@ input.error {
 }
 
 .hide {
-  visibility: hidden;
+  display: none;
 }

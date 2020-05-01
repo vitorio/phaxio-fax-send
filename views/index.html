@@ -13,9 +13,6 @@
     <!-- import the webpage's stylesheet -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.0/css/intlTelInput.css">
     <link rel="stylesheet" href="/style.css" />
-
-    <!-- import the webpage's client-side javascript file -->
-    <script src="/client.js" defer></script>
   </head>
   <body>
     <header><h1>XOXO fax send</h1></header>
@@ -46,6 +43,7 @@
           <input type="tel" name="phone" id="phone">
           <span id="valid-msg" class="hide" title="probably a valid number!">👍</span>
           <span id="error-msg" class="hide" title="maybe not a valid number?">😕</span>
+          <br>
         </label>
         <label for="quality-select">
           Quality
@@ -84,41 +82,8 @@
     <script src="https://button.glitch.me/button.js"></script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.0/js/intlTelInput.min.js"></script>
-    <script>
-      var input = document.querySelector("#phone"),
-          errorMsg = document.querySelector("#error-msg"),
-          validMsg = document.querySelector("#valid-msg");
-
-      // initialise plugin
-      var iti = window.intlTelInput(input, {
-        hiddenInput: "to",
-        initialCountry: "US",
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.0/js/utils.js",
-      });
-
-      var reset = function() {
-        input.classList.remove("error");
-        errorMsg.classList.add("hide");
-        validMsg.classList.add("hide");
-      };
-
-      // on blur: validate
-      input.addEventListener('blur', function() {
-        reset();
-        if (input.value.trim()) {
-          if (iti.isValidNumber()) {
-            validMsg.classList.remove("hide");
-          } else {
-            input.classList.add("error");
-            var errorCode = iti.getValidationError();
-            errorMsg.classList.remove("hide");
-          }
-        }
-      });
-
-      // on keyup / change flag: reset
-      input.addEventListener('change', reset);
-      input.addEventListener('keyup', reset);
-    </script>
+    
+    <!-- import the webpage's client-side javascript file -->
+    <script src="/client.js" defer></script>
   </body>
 </html>

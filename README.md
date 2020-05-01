@@ -1,7 +1,9 @@
-Twilio SMS Demo
-===============
+XOXO fax send
+=============
 
-This app is a demo of using Twilio's client library for sending SMS and MMS messages. Because it uses Twilio's trial account functionality, it's limited to sending messages to a fixed number. To try it out for yourself, remix this app.
+This is a basic system that uses Twilio's Fax API to send faxes. To set it up for yourself or your own friend group, you'll need a developer account from Twilio, which is out of scope of this document.
+
+Once you have a funded Twilio account, you'll need a phone number, and two codes from the Twilio Developer Console.
 
 Click "Show" to get started!
 
@@ -10,7 +12,8 @@ Your Project
 
 On the front-end,
 * `views/index.html` is the app's UI
-* `public/client.js` (currently blank) is where you can put client-side code
+* `public/client.js` has the JavaScript to set up International Telephone Input, the phone number validator and formatter
+* `public/style.css` has the page styling
 * `views/setup.html` and `public/setup.js` are for the setup helper flow.
 
 On the back-end,
@@ -20,8 +23,13 @@ On the back-end,
 
 ### More Info
 
-* [Twilio node helper library](https://www.twilio.com/docs/libraries/node)
-* [Twilio developer docs](https://www.twilio.com/docs/)
+* [Glitch Twilio SMS demo](https://glitch.com/~basic-twilio-sms)
+* [Twilio Fax blog post](https://www.twilio.com/blog/2017/04/faxing-ascii-images-using-node-and-twilio-programmable-fax.html)
+* [International Telephone Input library](https://intl-tel-input.com)
+
+
+Made with <a href="https://glitch.com">Glitch</a> and <a href="https://www.twilio.com">Twilio</a>
+      by <a href="http://vitor.io">Vitorio</a> for the <a href="https://xoxofest.com/">XOXO</a> Slack.
 
 
 Made by [Glitch](https://glitch.com/)
