@@ -21,13 +21,11 @@ On the back-end,
 
 # Security/Privacy
 
-Uploaded faxes are stored in Glitch's `/tmp` storage, which is deleted soon after the application spins down.
-Uploaded faxes are given temporary, generated filenames.
+Uploaded faxes are stored in Glitch's `/tmp` storage, which is deleted soon after the application spins down.  Uploaded faxes are given temporary, generated filenames.
 
 Twilio is set to not store sent faxes, although metadata about the send is kept for 180 days.
 
-The uploaded faxes are only served to requests presenting a valid Twilio signature,
-which (in theory) only Twilio should be able to generate.
+The uploaded faxes are only served to requests presenting a valid Twilio signature, which (in theory) only Twilio should be able to generate.
 
 # More Info
 
@@ -36,5 +34,4 @@ which (in theory) only Twilio should be able to generate.
 * [International Telephone Input library](https://intl-tel-input.com)
 * [Emoji Favicon generator](https://favicon.io/emoji-favicons/)
 
-Made with [Glitch](https://glitch.com) and [Twilio](https://www.twilio.com)
-by [Vitorio](http://vitor.io) for the [XOXO](https://xoxofest.com/) Slack.
+Made with [Glitch](https://glitch.com) and [Twilio](https://www.twilio.com) by [Vitorio](http://vitor.io) for the [XOXO](https://xoxofest.com/) Slack.
