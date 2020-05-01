@@ -1,5 +1,4 @@
-XOXO fax send
-=============
+# XOXO fax send
 
 This is a basic system that uses Twilio's Fax API to send faxes. To set it up for yourself or your own friend group, you'll need a developer account from Twilio, which is out of scope of this document.
 
@@ -7,8 +6,7 @@ Once you have a funded Twilio account, you'll need a phone number, and two codes
 
 Click "Show" to get started!
 
-Your Project
-------------
+# Your Project
 
 On the front-end,
 * `views/index.html` is the app's UI
@@ -21,18 +19,22 @@ On the back-end,
 * `package.json` contains the app's dependencies
 * `.env` contains variables custom to the app we don't want other users to see
 
-### More Info
+# Security/Privacy
+
+Uploaded faxes are stored in Glitch's `/tmp` storage, which is deleted soon after the application spins down.
+Uploaded faxes are given temporary, generated filenames.
+
+Twilio is set to not store sent faxes, although metadata about the send is kept for 180 days.
+
+The uploaded faxes are only served to requests presenting a valid Twilio signature,
+which (in theory) only Twilio should be able to generate.
+
+# More Info
 
 * [Glitch Twilio SMS demo](https://glitch.com/~basic-twilio-sms)
 * [Twilio Fax blog post](https://www.twilio.com/blog/2017/04/faxing-ascii-images-using-node-and-twilio-programmable-fax.html)
 * [International Telephone Input library](https://intl-tel-input.com)
+* [Emoji Favicon generator](https://favicon.io/emoji-favicons/)
 
-
-Made with <a href="https://glitch.com">Glitch</a> and <a href="https://www.twilio.com">Twilio</a>
-      by <a href="http://vitor.io">Vitorio</a> for the <a href="https://xoxofest.com/">XOXO</a> Slack.
-
-
-Made by [Glitch](https://glitch.com/)
--------------------
-
-\ ゜o゜)ノ
+Made with [Glitch](https://glitch.com) and [Twilio](https://www.twilio.com)
+by [Vitorio](http://vitor.io) for the [XOXO](https://xoxofest.com/) Slack.
