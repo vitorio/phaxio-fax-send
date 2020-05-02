@@ -27,6 +27,10 @@ Twilio is set to not store sent faxes, although metadata about the send is kept 
 
 The uploaded faxes are only served to requests presenting a valid Twilio signature, which (in theory) only Twilio should be able to generate.
 
+# Alternatives
+
+Twilio has its own serverless hosted code service called Twilio Functions, but as of April 2020 you can't POST
+
 # More Info
 
 * [Glitch Twilio SMS demo](https://glitch.com/~basic-twilio-sms)
