@@ -29,7 +29,9 @@ The uploaded faxes are only served to requests presenting a valid Twilio signatu
 
 # Alternatives
 
-Twilio has its own serverless hosted code service called Twilio Functions, but as of April 2020 you can't POST
+Twilio has its own serverless hosted code service called Twilio Functions, but as of April 2020 [you can't `POST` `multipart/form-data` content to it](https://www.twilio.com/docs/runtime/functions/request-flow) (typically what you'd use to upload a potentially large binary file like a PDF).
+
+Most online fax tools with free trials either don't allow you to send faxes, or limit your total number of pages.  Most want monthly subscriptions rather than offer pay-as-you-go.
 
 # More Info
 
