@@ -1,4 +1,4 @@
-// based on https://glitch.com/~basic-twilio-sms and
+// based on https://glitch.com/~xoxo-fax-send and
 // https://www.twilio.com/blog/2017/04/faxing-ascii-images-using-node-and-twilio-programmable-fax.html
 
 // init project

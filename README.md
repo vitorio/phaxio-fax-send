@@ -1,8 +1,8 @@
-# XOXO fax send
+# Phaxio fax send
 
-This is a basic system that uses Twilio's Fax API to send faxes. To set it up for yourself or your own friend group, you'll need a developer account from Twilio, which is out of scope of this document.
+This is a basic system that uses Phaxio's Fax API to send faxes. To set it up for yourself or your own friend group, you'll need an account from Phaxio, which is out of scope of this document.
 
-Once you have a funded Twilio account, you'll need a phone number, and two codes from the Twilio Developer Console.
+Once you have a funded Phaxio account, you'll need ...
 
 Click "Show" to get started!
 

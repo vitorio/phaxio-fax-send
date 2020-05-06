@@ -2,27 +2,27 @@
   "//1": "describes your app and its dependencies",
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
-  "name": "xoxo-fax-send",
+  "name": "phaxio-fax-send",
   "version": "0.0.1",
-  "description": "Send a PDF as a fax for XOXO frands!",
+  "description": "Send a PDF as a fax fusing Phaxio",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "twilio": "^4.6.0",
-    "express-fileupload": "^1.1.6"
+    "express-fileupload": "^1.1.6",
+    "phaxio-official": "^1.2.2"
   },
   "engines": {
     "node": "12.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/xoxo-fax-send"
+    "url": "https://glitch.com/edit/#!/phaxio-fax-send"
   },
   "license": "MIT",
   "keywords": [
-    "twilio",
+    "phaxio",
     "fax"
   ]
 }
