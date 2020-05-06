@@ -4,7 +4,7 @@
   "//3": "updating this file will download and update your packages",
   "name": "phaxio-fax-send",
   "version": "0.0.1",
-  "description": "Send a PDF as a fax fusing Phaxio",
+  "description": "Send a file as a fax with Phaxio",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
