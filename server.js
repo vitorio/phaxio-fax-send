@@ -3,7 +3,7 @@
 // init project
 const express = require("express");
 const app = express();
-const Twilio = require("twilio");
+const Phaxio = require('phaxio-official');
 const fileUpload = require("express-fileupload");
 const crypto = require('crypto');
 
@@ -41,9 +41,8 @@ app.use('/fax-files', express.static('/tmp/faxfiles'))
 
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
-  if (process.env.TWILIO_ACCOUNT_SID &&
-      process.env.TWILIO_PHONE_NUMBER &&
-      process.env.TWILIO_AUTH_TOKEN &&
+  if (process.env.PHAXIOKEY &&
+      process.env.PHAXIOSECRET &&
       process.env.SECRET) {
     res.sendFile(__dirname + "/views/index.html");
   } else {
@@ -59,8 +58,7 @@ app.get("/setup", function(req, res) {
 app.get("/setup-status", function (req, res) {
   res.json({
     "secret": !!process.env.SECRET,
-    "credentials": !!(process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN),
-    "twilio-phone": !!process.env.TWILIO_PHONE_NUMBER
+    "credentials": !!(process.env.PHAXIOKEY && process.env.PHAXIOSECRET)
   });
 });
 
@@ -85,7 +83,7 @@ app.post("/send-fax", function(req, res) {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
   
-  const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+  const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
   // Create options to send the message
   const options = {
@@ -113,7 +111,7 @@ app.get("/fax-status", function(req, res) {
     return res.status(400).send('Missing fax ID.');
   }
   
-  const client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+  const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
   // check status
   client.fax.faxes(req.query.id).fetch(function(err, response) {
