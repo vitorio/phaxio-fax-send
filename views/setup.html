@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>Setup for Phaxio fax send</title>
-    <meta name="description" content="Send a PDF as a fax for XOXO frands!">
+    <meta name="description" content="Send a file as a fax with Phaxio">
     <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.glitch.com/29d80af9-3e0a-4389-8807-cea9e546df37%2Fapple-touch-icon.png?v=1587944998403">
     <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.glitch.com/29d80af9-3e0a-4389-8807-cea9e546df37%2Ffavicon-32x32.png?v=1587944998424">
     <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.glitch.com/29d80af9-3e0a-4389-8807-cea9e546df37%2Ffavicon-16x16.png?v=1587944998373">
@@ -28,7 +28,7 @@
   <body>
     <header>
       <h1>
-        Setup for XOXO fax send
+        Setup for Phaxio fax send
       </h1>
     </header>
 
@@ -43,46 +43,29 @@
       </p>
       
       <p>
-        This is a basic system that uses Twilio's Fax API to send faxes. To set it up for yourself or your own friend group, you'll need a developer account from Twilio, which is out of scope of this document.
+        This is a basic system that uses Phaxio's API to send faxes. To set it up for yourself or your own friend group, you'll need a developer account from Phaxio, which is out of scope of this document.
       </p>
       
       <p>
-        Once you have a funded Twilio account, you'll need a phone number, and two codes from the <a target="_blank" href="https://www.twilio.com/console">Twilio Developer Console</a>.
+        Once you have a funded Phaxio account, you'll need two codes from Phaxio's <a target="_blank" href="https://console.phaxio.com/api_credentials">API Keys</a> and one from <a target="_blank" href="https://console.phaxio.com/user/callbacks/edit">Webhooks</a>.
       </p>
-      
-      <h3 id="twilio-phone">
-        Twilio Phone Number
-      </h3>
-      
-      <p>
-        Buy a phone number from Twilio to send faxes from it.
-        This also goes into the <code>.env</code> file of this project:
-      </p>
-      
-      <pre><code># find these at https://www.twilio.com/console
-# TWILIO_PHONE_NUMBER=<mark>"+15551234567"</mark>
-# TWILIO_ACCOUNT_SID=XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-# TWILIO_AUTH_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-</code></pre>
       
       <h3 id="credentials">
         Account Credentials
       </h3>
       
       <p>
-        You'll also need your "Account SID" and "Auth Token", both of which are also in the console. These are secrets, so be sure not to share them with anyone! The values in <code>.env</code> are only visible to the owner of the project, so you can safely paste them there:
+        You'll need your "Account SID" and "Auth Token", both of which are also in the console. These are secrets, so be sure not to share them with anyone! The values in <code>.env</code> are only visible to the owner of the project, so you can safely paste them there:
       </p>
 
-      <pre><code># find these at https://www.twilio.com/console
-# TWILIO_PHONE_NUMBER="+15551234567"
-# TWILIO_ACCOUNT_SID=<mark>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</mark>
-# TWILIO_AUTH_TOKEN=<mark>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</mark>
+      <pre><code># find these at https://console.phaxio.com/api_credentials
+PHAXIOKEY=<mark>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</mark>
+PHAXIOSECRET=<mark>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</mark>
+
+# find this at https://console.phaxio.com/user/callbacks/edit
+PHAXIOTOKEN=<mark>XXXXXXXXXXXXXXXXXXXXXXXXXXXX</mark>
 </code></pre>
       
-      <p>
-        (You might see options to generate and use API Keys instead, but we always need to provide the Account SID, and to validate requests from Twilio we need the Auth Token as well anyway.)
-      </p>
-
       <h3 id="secret">
         A Secret!
       </h3>
@@ -96,8 +79,8 @@ SECRET=<mark>XXXXXXXX</mark></code></pre>
     </main>
 
     <footer>
-      Made with <a href="https://glitch.com">Glitch</a> and <a href="https://www.twilio.com">Twilio</a>
-      by <a href="http://vitor.io">Vitorio</a> for the <a href="https://xoxofest.com/">XOXO</a> Slack.
+      Made with <a href="https://glitch.com">Glitch</a> and <a href="https://www.phaxio.com">Phaxio</a>
+      by <a href="http://vitor.io">Vitorio</a>.
     </footer>
 
     <!-- include the Glitch button to show what the webpage is about and

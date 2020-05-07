@@ -43,6 +43,7 @@ app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
   if (process.env.PHAXIOKEY &&
       process.env.PHAXIOSECRET &&
+      process.env.PHAXIOTOKEN &&
       process.env.SECRET) {
     res.sendFile(__dirname + "/views/index.html");
   } else {
@@ -58,7 +59,7 @@ app.get("/setup", function(req, res) {
 app.get("/setup-status", function (req, res) {
   res.json({
     "secret": !!process.env.SECRET,
-    "credentials": !!(process.env.PHAXIOKEY && process.env.PHAXIOSECRET)
+    "credentials": !!(process.env.PHAXIOKEY && process.env.PHAXIOSECRET && process.env.PHAXIOTOKEN)
   });
 });
 
