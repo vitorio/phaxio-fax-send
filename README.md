@@ -29,15 +29,12 @@ The uploaded faxes are only served to requests presenting a valid Phaxio signatu
 
 # Alternatives
 
-Twilio has its own serverless hosted code service called Twilio Functions, but as of April 2020 [you can't `POST` `multipart/form-data` content to it](https://www.twilio.com/docs/runtime/functions/request-flow) (typically what you'd use to upload a potentially large binary file like a PDF).
-
 Most online fax tools with free trials either don't allow you to send faxes, or limit your total number of pages.  Most want monthly subscriptions rather than offer pay-as-you-go.
 
 # More Info
 
-* [Glitch Twilio SMS demo](https://glitch.com/~basic-twilio-sms)
-* [Twilio Fax blog post](https://www.twilio.com/blog/2017/04/faxing-ascii-images-using-node-and-twilio-programmable-fax.html)
+* [Glitch Twilio fax send](https://glitch.com/~xoxo-fax-send)
 * [International Telephone Input library](https://intl-tel-input.com)
 * [Emoji Favicon generator](https://favicon.io/emoji-favicons/)
 
-Made with [Glitch](https://glitch.com) and [Twilio](https://www.twilio.com) by [Vitorio](http://vitor.io) for the [XOXO](https://xoxofest.com/) Slack.
+Made with [Glitch](https://glitch.com) and [Phaxio](https://www.phaxio.com) by [Vitorio](http://vitor.io).
