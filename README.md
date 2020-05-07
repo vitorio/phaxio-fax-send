@@ -23,9 +23,9 @@ On the back-end,
 
 Uploaded faxes are stored in Glitch's `/tmp` storage, which is deleted soon after the application spins down.  Uploaded faxes are given temporary, generated filenames.
 
-Twilio is set to not store sent faxes, although metadata about the send is kept for 180 days.
+Phaxio is set to not store sent faxes, although metadata about the send may be kept indefinitely (TODO: email Phaxio about this).
 
-The uploaded faxes are only served to requests presenting a valid Twilio signature, which (in theory) only Twilio should be able to generate.
+The uploaded faxes are only served to requests presenting a valid Phaxio signature, which (in theory) only Phaxio should be able to generate.
 
 # Alternatives
 
