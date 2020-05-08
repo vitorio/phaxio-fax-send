@@ -72,13 +72,12 @@ app.post("/send-fax", function(req, res) {
   // Send a single fax 
   phaxio.faxes.create({
     to: req.body.to,
-    file: req.files.fax.tempFilePath,
-  })
-  .then((fax) => {
-    res.redirect('/fax-status?id=' + fax.id);
+    file: req.files.fax.tempFilePath
   })
   .then(status => console.log('Fax status response:\n', JSON.stringify(status, null, 2)))
   .catch((err) => { throw err; });
+  
+  res.redirect('/fax-status?id=' + status.id);
 });
 
 app.get("/fax-status", function(req, res) {
@@ -89,18 +88,15 @@ app.get("/fax-status", function(req, res) {
   const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
   // check status
-  client.fax.faxes(req.query.id).fetch(function(err, response) {
-    if (err) {
-      console.error(err);
-      res.end('oh no, there was a fax status error! Check the app logs for more information.');
-    } else {
+  phaxio.faxes.getInfo(req.query.id)
+  .then(response => {
       var price = '$0.00';
-      if (response.price) price = '$' + (response.price * -1.0);
-      res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status + ' in ' + response.quality + ' quality costing ' + price + ' (refresh for updates)');
-      if (response.status == 'failed') console.error(response);
-    }
+      if (response.data.cost) price = '$' + (response.data.cost);
+      res.end(response.data.num_pages + ' page(s) submitted ' + response.data.created_at + ' is/are ' + response.data.status + ' costing ' + price + ' (refresh for updates)');
+      if (response.data.status == 'failure') console.error(response);
+  })
+  .catch((err) => { throw err; });
   });
-});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
