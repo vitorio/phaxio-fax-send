@@ -74,10 +74,17 @@ app.post("/send-fax", function(req, res) {
     to: req.body.to,
     file: req.files.fax.tempFilePath
   })
+  .then((fax) => {
+    // The `create` method returns a fax object with methods attached to it for doing things
+    // like cancelling, resending, getting info, etc.
+
+    // Wait 5 seconds to let the fax send, then get the status of the fax by getting its info from the API.
+    return setTimeout(() => {
+      res.redirect('/fax-status?id=' + fax.id);
+    }, 5000)
+  })
   .then(status => console.log('Fax status response:\n', JSON.stringify(status, null, 2)))
   .catch((err) => { throw err; });
-  
-  res.redirect('/fax-status?id=' + status.id);
 });
 
 app.get("/fax-status", function(req, res) {
