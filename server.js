@@ -25,27 +25,10 @@ app.use(fileUpload({
   preserveExtension : true
 }));
 
-// Twilio.webhook() doesn't seem to properly validate fax GET requests, so doing them by hand
-app.use('/fax-files', function(req, res, next) {
-  var url = 'https://' + req.hostname + req.originalUrl;
-  var sig = crypto.createHmac('sha1', process.env.PHAXIOTOKEN).update(Buffer.from(url, 'utf-8')).digest('hex');
-  
-  console.error(req.headers);
-
-  if (req.header('X-Phaxio-Signature') !== sig) {
-    console.error(url + ' requested without Phaxio sig');
-    return res.status(403).send('File requested without Phaxio signature.');
-  }
-
-  next();
-});
-app.use('/fax-files', express.static('/tmp/faxfiles'))
-
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
   if (process.env.PHAXIOKEY &&
       process.env.PHAXIOSECRET &&
-      process.env.PHAXIOTOKEN &&
       process.env.SECRET) {
     res.sendFile(__dirname + "/views/index.html");
   } else {
@@ -61,7 +44,7 @@ app.get("/setup", function(req, res) {
 app.get("/setup-status", function (req, res) {
   res.json({
     "secret": !!process.env.SECRET,
-    "credentials": !!(process.env.PHAXIOKEY && process.env.PHAXIOSECRET && process.env.PHAXIOTOKEN)
+    "credentials": !!(process.env.PHAXIOKEY && process.env.PHAXIOSECRET)
   });
 });
 
@@ -78,20 +61,18 @@ app.post("/send-fax", function(req, res) {
     return res.status(400).send('No destination phone number was provided.');
   }
   
-  if (req.body.quality !== "standard" && req.body.quality !== "fine" && req.body.quality !== "superfine") {
-    return res.status(400).send('Invalid quality.');
-  }  
-
+  /* ???
   if (req.files.fax.mimetype != "application/pdf") {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
+  */
   
   const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
   // Create options to send the message
   const options = {
     to: req.body.to,
-    content_url: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp/faxfiles', '/fax-files')
+    file: req.files.fax.tempFilePath
   };
 
   // Send the message!
