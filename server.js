@@ -69,22 +69,16 @@ app.post("/send-fax", function(req, res) {
   
   const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
-  // Create options to send the message
-  const options = {
+  // Send a single fax 
+  phaxio.faxes.create({
     to: req.body.to,
-    file: req.files.fax.tempFilePath
-  };
-
-  // Send the message!
-  phaxio.faxes.create(options, function(err, response) {
-    if (err) {
-      console.error(err);
-      res.end('oh no, there was a fax sending error! Check the app logs for more information.');
-    } else {
-      console.log(options.content_url);
-      res.redirect('/fax-status?id=' + response.id);
-    }
-  });
+    file: req.files.fax.tempFilePath,
+  })
+  .then((fax) => {
+    res.redirect('/fax-status?id=' + fax.id);
+  })
+  .then(status => console.log('Fax status response:\n', JSON.stringify(status, null, 2)))
+  .catch((err) => { throw err; });
 });
 
 app.get("/fax-status", function(req, res) {
