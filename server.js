@@ -28,8 +28,8 @@ app.use(fileUpload({
 // Twilio.webhook() doesn't seem to properly validate fax GET requests, so doing them by hand
 app.use('/fax-files', function(req, res, next) {
   var url = 'https://' + req.hostname + req.originalUrl;
-  var sig = crypto.createHmac('sha1', process.env.TWILIO_AUTH_TOKEN).update(Buffer.from(url, 'utf-8')).digest('base64');
-  
+  var sig = crypto.createHmac('sha1', process.env.P).update(Buffer.from(url, 'utf-8')).digest('base64');
+  crypto.createHmac('sha1', callbackToken).update(url).digest('hex');
   if (req.header('X-Twilio-Signature') !== sig) {
     console.error(url + ' requested without Twilio sig');
     return res.status(403).send('File requested without Twilio signature.');
@@ -98,8 +98,8 @@ app.post("/send-fax", function(req, res) {
       console.error(err);
       res.end('oh no, there was a fax sending error! Check the app logs for more information.');
     } else {
-      console.log(options.mediaUrl);
-      res.redirect('/fax-status?id=' + response.sid);
+      console.log(options.content_url);
+      res.redirect('/fax-status?id=' + response.id);
     }
   });
 });
