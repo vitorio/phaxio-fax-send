@@ -24,21 +24,6 @@ app.use(fileUpload({
   safeFileNames : true,
   preserveExtension : true
 }));
-
-// Twilio.webhook() doesn't seem to properly validate fax GET requests, so doing them by hand
-app.use('/fax-files', function(req, res, next) {
-  var url = 'https://' + req.hostname + req.originalUrl;
-  var sig = crypto.createHmac('sha1', process.env.PHAXIOTOKEN).update(Buffer.from(url, 'utf-8')).digest('hex');
-  
-  console.error(req.headers);
-
-  if (req.header('X-Phaxio-Signature') !== sig) {
-    console.error(url + ' requested without Phaxio sig');
-    return res.status(403).send('File requested without Phaxio signature.');
-  }
-
-  next();
-});
 app.use('/fax-files', express.static('/tmp/faxfiles'))
 
 app.get("/", function(req, res) {
@@ -78,13 +63,11 @@ app.post("/send-fax", function(req, res) {
     return res.status(400).send('No destination phone number was provided.');
   }
   
-  if (req.body.quality !== "standard" && req.body.quality !== "fine" && req.body.quality !== "superfine") {
-    return res.status(400).send('Invalid quality.');
-  }  
-
+  /*
   if (req.files.fax.mimetype != "application/pdf") {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
+  */
   
   const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
@@ -114,6 +97,7 @@ app.get("/fax-status", function(req, res) {
   const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
   // check status
+  phaxio.faxes.getInfo(req.query.id)
   client.fax.faxes(req.query.id).fetch(function(err, response) {
     if (err) {
       console.error(err);
