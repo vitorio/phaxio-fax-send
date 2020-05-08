@@ -69,7 +69,7 @@ app.post("/send-fax", function(req, res) {
   }
   
   if (!req.files || !req.files.fax) {
-    return res.status(400).send('No PDF was uploaded.');
+    return res.status(400).send('No file was uploaded.');
   }
   
   if (!req.body.to) {
@@ -89,14 +89,11 @@ app.post("/send-fax", function(req, res) {
   // Create options to send the message
   const options = {
     to: req.body.to,
-    from: process.env.TWILIO_PHONE_NUMBER,
-    mediaUrl: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp/faxfiles', '/fax-files'),
-    quality: req.body.quality,
-    storeMedia: false
+    content_url: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp/faxfiles', '/fax-files')
   };
 
   // Send the message!
-  client.fax.faxes.create(options, function(err, response) {
+  phaxio.faxes.create(options, function(err, response) {
     if (err) {
       console.error(err);
       res.end('oh no, there was a fax sending error! Check the app logs for more information.');

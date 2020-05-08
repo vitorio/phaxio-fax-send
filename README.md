@@ -2,7 +2,7 @@
 
 This is a basic system that uses Phaxio's Fax API to send faxes. To set it up for yourself or your own friend group, you'll need an account from Phaxio, which is out of scope of this document.
 
-Once you have a funded Phaxio account, you'll need ...
+Once you have a funded Phaxio account, you'll need three codes from the Phaxio console.
 
 Click "Show" to get started!
 
