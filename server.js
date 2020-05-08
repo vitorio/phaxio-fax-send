@@ -103,7 +103,7 @@ app.get("/fax-status", function(req, res) {
       if (response.data.status == 'failure') console.error(response);
   })
   .catch((err) => { throw err; });
-  });
+});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function() {
