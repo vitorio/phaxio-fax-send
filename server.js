@@ -5,7 +5,6 @@ const express = require("express");
 const app = express();
 const Phaxio = require('phaxio-official');
 const fileUpload = require("express-fileupload");
-const crypto = require('crypto');
 
 // setup form and post handling
 app.use(express.json());
@@ -24,7 +23,6 @@ app.use(fileUpload({
   safeFileNames : true,
   preserveExtension : true
 }));
-app.use('/fax-files', express.static('/tmp/faxfiles'))
 
 app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
@@ -62,21 +60,27 @@ app.post("/send-fax", function(req, res) {
     return res.status(400).send('No destination phone number was provided.');
   }
   
-  /*
+  /* TODO
   if (req.files.fax.mimetype != "application/pdf") {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
   */
   
+  // UNDOCUMENTED: Phaxio uses the extension to determine the file type, uploads will fail without one
+  const tempfilewithext = req.files.fax.tempFilePath + '.' + req.files.fax.name.split('.').pop();
+  req.files.fax.mv(tempfilewithext, (err) => {
+    if (err) {
+      console.error(err);
+      res.end('oh no, there was a fax file move error! Check the app logs for more information.');
+    }
+  });
+
   const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
-  
-  req.files.fax.name
   
   // Create options to send the message
   const options = {
     to: req.body.to,
-    //content_url: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp/faxfiles', '/fax-files')
-    file: req.files.fax.tempFilePath
+    file: tempfilewithext
   };
 
   // Send the message!
