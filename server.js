@@ -70,6 +70,8 @@ app.post("/send-fax", function(req, res) {
   
   const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
+  req.files.fax.name
+  
   // Create options to send the message
   const options = {
     to: req.body.to,
