@@ -80,7 +80,7 @@ app.post("/send-fax", function(req, res) {
   // Send the message!
   phaxio.faxes.create(options)
   .then(faxObject => {
-    console.log(options.content_url);
+    console.log(options.file);
     res.redirect('/fax-status?id=' + faxObject.id);
   })
   .catch((err) => {
