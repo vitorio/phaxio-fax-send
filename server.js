@@ -97,17 +97,18 @@ app.get("/fax-status", function(req, res) {
   const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
   // check status
+  var response = phaxio.faxes.getInfo(req.query.id)
+  
   phaxio.faxes.getInfo(req.query.id)
-  client.fax.faxes(req.query.id).fetch(function(err, response) {
-    if (err) {
-      console.error(err);
-      res.end('oh no, there was a fax status error! Check the app logs for more information.');
-    } else {
-      var price = '$0.00';
-      if (response.price) price = '$' + (response.price * -1.0);
-      res.end(response.numPages + ' page(s) submitted ' + response.dateCreated + ' is/are ' + response.status + ' in ' + response.quality + ' quality costing ' + price + ' (refresh for updates)');
-      if (response.status == 'failed') console.error(response);
-    }
+  .then(response => {
+    var price = '0¢';
+    if (response.data.cost) price = (response.data.cost) + '¢';
+    res.end(response.data.num_pages + ' page(s) submitted ' + response.data.created_at + ' is/are ' + response.data.status + ' costing ' + price + ' (refresh for updates)');
+    if (response.status == 'failure') console.error(response);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.end('oh no, there was a fax status error! Check the app logs for more information.');
   });
 });
 
