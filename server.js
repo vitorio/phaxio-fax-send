@@ -60,7 +60,7 @@ app.post("/send-fax", function(req, res) {
     return res.status(400).send('No destination phone number was provided.');
   }
   
-  /* TODO
+  /* TODO check valid MIME types
   if (req.files.fax.mimetype != "application/pdf") {
     return res.status(415).send('Uploaded file doesn\'t look like a PDF.')
   }
