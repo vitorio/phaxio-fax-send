@@ -78,6 +78,12 @@ app.post("/send-fax", function(req, res) {
   };
 
   // Send the message!
+  phaxio.faxes.create(options)
+  .then(faxObject => {
+      console.log(options.content_url);
+      res.redirect('/fax-status?id=' + response.id);
+  })
+  .catch((err) => { throw err; });
   phaxio.faxes.create(options, function(err, response) {
     if (err) {
       console.error(err);
@@ -103,6 +109,7 @@ app.get("/fax-status", function(req, res) {
   .then(response => {
     var price = '0¢';
     if (response.data.cost) price = (response.data.cost) + '¢';
+    res.type('text/plain; charset=utf-8');
     res.end(response.data.num_pages + ' page(s) submitted ' + response.data.created_at + ' is/are ' + response.data.status + ' costing ' + price + ' (refresh for updates)');
     if (response.status == 'failure') console.error(response);
   })
