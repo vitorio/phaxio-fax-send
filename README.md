@@ -2,7 +2,7 @@
 
 This is a basic system that uses Phaxio's Fax API to send faxes. To set it up for yourself or your own friend group, you'll need an account from Phaxio, which is out of scope of this document.
 
-Once you have a funded Phaxio account, you'll need three codes from the Phaxio console.
+Once you have a funded Phaxio account, you'll need two codes from the Phaxio console.
 
 Click "Show" to get started!
 
@@ -25,7 +25,7 @@ Uploaded faxes are stored in Glitch's `/tmp` storage, which is deleted soon afte
 
 Phaxio is set to not store sent faxes, although metadata about the send may be kept indefinitely (TODO: email Phaxio about this).
 
-The uploaded faxes are only served to requests presenting a valid Phaxio signature, which (in theory) only Phaxio should be able to generate.
+TODO: The uploaded faxes are only served to requests presenting a valid Phaxio signature, which (in theory) only Phaxio should be able to generate.
 
 # Alternatives
 

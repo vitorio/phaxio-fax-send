@@ -30,7 +30,6 @@ app.get("/", function(req, res) {
   // show the setup page if the env isn't configured
   if (process.env.PHAXIOKEY &&
       process.env.PHAXIOSECRET &&
-      process.env.PHAXIOTOKEN &&
       process.env.SECRET) {
     res.sendFile(__dirname + "/views/index.html");
   } else {
@@ -46,7 +45,7 @@ app.get("/setup", function(req, res) {
 app.get("/setup-status", function (req, res) {
   res.json({
     "secret": !!process.env.SECRET,
-    "credentials": !!(process.env.PHAXIOKEY && process.env.PHAXIOSECRET && process.env.PHAXIOTOKEN)
+    "credentials": !!(process.env.PHAXIOKEY && process.env.PHAXIOSECRET)
   });
 });
 
@@ -74,24 +73,19 @@ app.post("/send-fax", function(req, res) {
   // Create options to send the message
   const options = {
     to: req.body.to,
-    content_url: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp/faxfiles', '/fax-files')
+    //content_url: 'https://' + req.hostname + req.files.fax.tempFilePath.replace('/tmp/faxfiles', '/fax-files')
+    file: req.files.fax.tempFilePath
   };
 
   // Send the message!
   phaxio.faxes.create(options)
   .then(faxObject => {
-      console.log(options.content_url);
-      res.redirect('/fax-status?id=' + response.id);
+    console.log(options.content_url);
+    res.redirect('/fax-status?id=' + faxObject.id);
   })
-  .catch((err) => { throw err; });
-  phaxio.faxes.create(options, function(err, response) {
-    if (err) {
-      console.error(err);
-      res.end('oh no, there was a fax sending error! Check the app logs for more information.');
-    } else {
-      console.log(options.content_url);
-      res.redirect('/fax-status?id=' + response.id);
-    }
+  .catch((err) => {
+    console.error(err);
+    res.end('oh no, there was a fax sending error! Check the app logs for more information.');
   });
 });
 
@@ -103,8 +97,6 @@ app.get("/fax-status", function(req, res) {
   const phaxio = new Phaxio(process.env.PHAXIOKEY, process.env.PHAXIOSECRET);
   
   // check status
-  var response = phaxio.faxes.getInfo(req.query.id)
-  
   phaxio.faxes.getInfo(req.query.id)
   .then(response => {
     var price = '0¢';
