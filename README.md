@@ -23,7 +23,7 @@ On the back-end,
 
 Uploaded faxes are stored in Glitch's `/tmp` storage, which is deleted soon after the application spins down.  Uploaded faxes are given temporary, generated filenames.
 
-The uploaded faxes are submitted directly to Phaxio and cannot be requested externally.  Phaxio is set to not store sent faxes, although metadata about the send may be kept indefinitely (TODO: email Phaxio about this).
+The uploaded faxes are submitted directly to Phaxio and cannot be requested externally.  Phaxio is set to not store sent faxes, although metadata about the send is kept indefinitely.
 
 # Alternatives
 
